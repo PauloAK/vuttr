@@ -8,7 +8,6 @@ use App\Http\Requests\v1\Auth\RegisterRequest;
 use App\Http\Resources\v1\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -21,7 +20,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request) : JsonResponse
     {
         if (!$token = auth()->attempt($request->validated())) {
-            return response()->json(['error' => 'Username or password incorrects'], 401);
+            return response()->json(['message' => 'Username or password incorrect'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -37,7 +36,7 @@ class AuthController extends Controller
     {
         $user = User::create($request->validated());
 
-        return (new UserResource($user))->response()->setStatusCode(201);
+        return response()->json(new UserResource($user), 201);
     }
 
     /**
@@ -45,9 +44,9 @@ class AuthController extends Controller
      *
      * @return JsonResponse
      */
-    public function me()
+    public function me() : JsonResponse
     {
-        return (new UserResource(auth()->user()))->response()->setStatusCode(200);
+        return response()->json(new UserResource(auth()->user()), 200);
     }
 
     /**
@@ -59,7 +58,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'Successfully logged out'], 200);
     }
 
     /**
@@ -77,14 +76,14 @@ class AuthController extends Controller
      *
      * @param  string $token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    protected function respondWithToken(string $token)
+    protected function respondWithToken(string $token) : JsonResponse
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        ], 200);
     }
 }

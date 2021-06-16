@@ -3,25 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tag extends Model
 {
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'tool_id'
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
     ];
 
     /**
      * Owner tool
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function tool() : \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function tool() : BelongsTo
     {
         return $this->belongsTo(Tool::class);
     }

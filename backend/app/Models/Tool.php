@@ -3,27 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tool extends Model
 {
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'link',
-        'description',
-        'user_id'
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
     ];
 
     /**
      * Owner user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user() : \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -31,9 +32,9 @@ class Tool extends Model
     /**
      * Tool tags
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function tags() : \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tags() : HasMany
     {
         return $this->hasMany(Tag::class);
     }

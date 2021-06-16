@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -11,14 +12,14 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'username',
-        'password',
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -55,7 +56,7 @@ class User extends Authenticatable implements JWTSubject
      * @param string $value
      * @return void
      */
-    public function setPasswordAttribute(string $value)
+    public function setPasswordAttribute(string $value) : void
     {
         $this->attributes['password'] = bcrypt($value);
     }
@@ -63,9 +64,9 @@ class User extends Authenticatable implements JWTSubject
     /**
      * User tools
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function tools() : \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tools() : HasMany
     {
         return $this->hasMany(Tool::class);
     }
