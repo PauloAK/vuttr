@@ -50,6 +50,17 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Encrypts user password on set
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setPasswordAttribute(string $value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
      * User tools
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
