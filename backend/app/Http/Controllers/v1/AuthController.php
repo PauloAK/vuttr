@@ -5,7 +5,9 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\Auth\LoginRequest;
 use App\Http\Requests\v1\Auth\RegisterRequest;
+use App\Http\Resources\v1\UserResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -14,9 +16,9 @@ class AuthController extends Controller
      * Get a JWT via given credentials.
      * 
      * @param LoginRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request) : JsonResponse
     {
         if (!$token = auth()->attempt($request->validated())) {
             return response()->json(['error' => 'Username or password incorrects'], 401);
@@ -29,31 +31,31 @@ class AuthController extends Controller
      * Registers new user
      *
      * @param RegisterRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request) : JsonResponse
     {
         $user = User::create($request->validated());
 
-        return response()->json($user);
+        return (new UserResource($user))->response()->setStatusCode(201);
     }
 
     /**
      * Get the authenticated User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return (new UserResource(auth()->user()))->response()->setStatusCode(200);
     }
 
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function logout()
+    public function logout() : JsonResponse
     {
         auth()->logout();
 
@@ -63,9 +65,9 @@ class AuthController extends Controller
     /**
      * Refresh a token.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function refresh()
+    public function refresh() : JsonResponse
     {
         return $this->respondWithToken(auth()->refresh());
     }
