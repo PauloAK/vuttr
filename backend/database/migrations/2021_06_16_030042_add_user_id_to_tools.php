@@ -28,7 +28,7 @@ class AddUserIdToTools extends Migration
     public function down()
     {
         Schema::table('tools', function (Blueprint $table) {
-            $table->dropColumn('users');
+            $table->dropColumn('user_id');
         });
     }
 }
