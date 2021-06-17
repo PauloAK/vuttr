@@ -1,10 +1,11 @@
+import IResponse from '../Interfaces/IResponse';
 import IUser from '../Interfaces/IUser';
 import Client from './Client';
 
 interface IAuthApi {
-    login: (user: IUser) => {},
-    me: () => {},
-    refreshToken: () => {}
+    login: (user: IUser) => Promise<IResponse>,
+    me: () => Promise<IResponse>,
+    refreshToken: () => Promise<IResponse>
 }
 
 export const AuthApi : IAuthApi = {

@@ -1,13 +1,14 @@
 import React from 'react';
+import IResponse from '../Interfaces/IResponse';
 import Storage from '../Storage';
 
 const BASE_URL = process.env.REACT_APP_API_URL; 
 
 interface IClient {
-    _request: (endPoint: string, method: string, body?: object) => {},
-    get: (endPoint: string) => {},
-    post: (endPoint: string, body?: object) => {},
-    destroy: (endPoint: string) => {},
+    _request: (endPoint: string, method: string, body?: object) => Promise<IResponse>,
+    get: (endPoint: string) => Promise<IResponse>,
+    post: (endPoint: string, body?: object) => Promise<IResponse>,
+    destroy: (endPoint: string) => Promise<IResponse>,
 }
 
 interface IData {
@@ -38,7 +39,7 @@ const Client : IClient = {
         return {
             status: req.status,
             json: await req.json()
-        };
+        } as IResponse;
     },
     get : async (endPoint) => {
         return Client._request(endPoint, 'GET');

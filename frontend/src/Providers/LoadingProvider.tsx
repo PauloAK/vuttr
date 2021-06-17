@@ -1,7 +1,15 @@
 import { createContext, useContext, useState } from 'react';
 import Loading from '../Components/UI/Loading';
 
-export const LoadingContext = createContext({});
+interface ILoading {
+    show: () => void,
+    hide: () => void
+}
+
+export const LoadingContext = createContext<ILoading>({
+    show: () => {},
+    hide: () => {}
+});
 
 export const LoadingProvider : React.FC<{}> = ({ children }) => {
     const [loading, setLoading] = useState(false);
@@ -16,8 +24,8 @@ export const LoadingProvider : React.FC<{}> = ({ children }) => {
 
     return (
         <LoadingContext.Provider value={{ hide, show }}>
-            {children}
             { loading ? <Loading /> : '' }
+            {children}
         </LoadingContext.Provider>
     )
 }

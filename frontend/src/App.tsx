@@ -1,9 +1,13 @@
 import React from 'react';
-import Login from './Pages/Auth/Login';
 import {
     Switch,
     Route
 } from "react-router-dom";
+import Login from './Pages/Auth/Login';
+import Register from './Pages/Auth/Register';
+import Tools from './Pages/Tools';
+import PrivateRoute from './Components/Routing/PrivateRoute';
+import NotFound from './Pages/NotFound';
 
 function App() {
     return (
@@ -12,10 +16,10 @@ function App() {
                 <Login />
             </Route>
             <Route path="/register">
-                
+                <Register />
             </Route>
             <PrivateRoute exact path="/">
-                <Home />
+                <Tools />
             </PrivateRoute>
             <Route path="*">
                 <NotFound />
