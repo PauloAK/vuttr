@@ -5,18 +5,22 @@ import Client from './Client';
 interface IAuthApi {
     login: (user: IUser) => Promise<IResponse>,
     me: () => Promise<IResponse>,
-    refreshToken: () => Promise<IResponse>
+    refreshToken: () => Promise<IResponse>,
+    register: (use: IUser) => Promise<IResponse>
 }
 
 export const AuthApi : IAuthApi = {
     login: async (formData: IUser) => {
-        return await Client.post('/api/v1/auth/login', formData);
+        return Client.post('/api/v1/auth/login', formData);
     },
     me: async () => {
-        return await Client.post('/api/v1/auth/me');
+        return Client.post('/api/v1/auth/me');
     },
     refreshToken: async () => {
-        return await Client.post('/api/v1/auth/refresh');
+        return Client.post('/api/v1/auth/refresh');
+    },
+    register: async (formData: IUser) => {
+        return Client.post('/api/v1/auth/register', formData);
     }
 };
 
