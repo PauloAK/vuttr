@@ -8,12 +8,16 @@
 
 /* Your own custom component styles */
 
-input {
-    @apply px-1 py-0.5 border border-gray-300 shadow rounded w-full m-1;
+input[type=text], input[type=password] {
+    @apply px-1 py-0.5 border border-gray-300 shadow rounded-sm w-full m-1;
+}
+
+input.auto-size {
+    @apply m-0 w-auto;
 }
 
 .btn {
-    @apply px-3 py-1 rounded bg-gray-50 font-medium flex items-center gap-1;
+    @apply px-3 py-1 rounded-sm bg-gray-50 font-medium flex items-center gap-1;
 }
 
 .btn.btn-sm {
