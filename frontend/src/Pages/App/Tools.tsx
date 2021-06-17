@@ -1,9 +1,33 @@
 import React from 'react';
-import Box from '../../Components/UI/Box';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { GoPlus } from "react-icons/go";
-import { TiTimes } from "react-icons/ti"
+import Tool from '../../Components/Pages/Tool';
+import ITool from '../../Interfaces/ITool';
+import ToolApi from '../../Api/ToolApi';
+import { useLoading } from '../../Providers/LoadingProvider';
+import Swal from '../../Components/UI/Swal';
+import Modal from '../../Components/UI/Modal';
 
 const Tools: React.FC<{}> = () => {
+    const [ tools, setTools ] = useState<ITool[]>([]);
+    const loading = useLoading();
+
+    useEffect( () => {
+        listTools();
+    }, []);
+
+    const listTools = async () => {
+        loading.show();
+        let response = await ToolApi.list();
+        if (response.status === 200) {
+            setTools(response.json);
+        } else {
+            Swal.showToast('error', 'Error while getting tools list');
+        }
+        loading.hide();
+    }
+
     return (
         <>
             <div className="w-full flex h-full justify-center items-center overflow-y-auto">
@@ -13,7 +37,7 @@ const Tools: React.FC<{}> = () => {
 
                     <div className="w-full flex justify-between mt-6">
                         <div className="search flex items-center gap-1">
-                            <input type="text" className="auto-size" placeholder="node"/>
+                            <input type="text" className="input-style" placeholder="node"/>
                             <label htmlFor="tags" className="flex gap-1 items-center text-sm">
                                 <input type="checkbox" name="tags" value="true" />
                                 Search in tags only
@@ -28,27 +52,24 @@ const Tools: React.FC<{}> = () => {
                     </div>
 
                     <div id="tools-container" className="w-full mt-3">
-
-                        <div className="tool p-2 px-4 w-full bg-white rounded-sm shadow-md">
-                            <div className="header flex justify-between">
-                                <h3 className="text-lg font-medium text-blue-500 hover:text-blue-400">Teste</h3>
-                                <button className="btn btn-red btn-sm">
-                                    <TiTimes />
-                                    Remove
-                                </button>
-                            </div>
-                            <div className="content">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam deserunt atque, maiores officia eos ullam! Assumenda id nihil aliquid quas incidunt, quam possimus esse eveniet officiis dolorem commodi est harum.
-                            </div>
-                            <div className="tags font-medium flex gap-1 text-sm mt-2">
-                                <span>#node</span>
-                                <span className="bg-yellow-200 px-0.5">#restapi</span>
-                            </div>
-                        </div>
-
+                        { tools.length ?
+                            tools.map(tool => (
+                                <Tool data={tool} />
+                            ))
+                            : 
+                            (
+                                <div className="w-full text-center text-gray-600 italic font-normal">
+                                    No tools found!
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>
+
+            <Modal isOpen={true}>
+                Teste
+            </Modal>
         </>
     );
 }

@@ -9,6 +9,7 @@ import Swal from '../../Components/UI/Swal';
 import Storage from '../../Storage';
 import IUser from '../../Interfaces/IUser';
 import { Link } from 'react-router-dom';
+import Input from '../../Components/Form/Input';
 
 
 const Login: React.FC = () => {
@@ -40,7 +41,7 @@ const Login: React.FC = () => {
         loading.hide();
     }
 
-    const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUser({
             ...user,
             [e.currentTarget.name]: e.currentTarget.value
@@ -54,12 +55,25 @@ const Login: React.FC = () => {
                     <Box title="Login">
                         <div className="w-full px-2">
                             <form onSubmit={submitHandle} className="flex-col">
-                                <label htmlFor="username">Username:</label>
-                                <input type="text" name="username" placeholder="Type your username" onChange={handleChange} value={user.username} required/>
+                                <Input
+                                    label="Username"
+                                    type="text"
+                                    name="username"
+                                    placeholder="Create a unique username"
+                                    onChange={handleChange}
+                                    value={user.username}
+                                    required={true}
+                                />
                                 
-                                <label htmlFor="password">Password:</label>
-                                <input type="password" name="password" placeholder="Type your password" onChange={handleChange} value={user.password} required/>
-
+                                <Input
+                                    label="Password"
+                                    type="password"
+                                    name="password"
+                                    placeholder="Create a password"
+                                    onChange={handleChange}
+                                    value={user.password}
+                                    required={true}
+                                />
                                 <div className="mt-4 mb-2 flex justify-center w-full">
                                     <button className="btn btn-blue">
                                         Login

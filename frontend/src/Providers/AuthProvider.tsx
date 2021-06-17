@@ -63,7 +63,7 @@ export const AuthProvider : React.FC<{}> = ({ children }) => {
                 Swal.showToast('error', 'Sessão expirada, faça login novamente');
                 history.push('/login');
             } else {
-                Storage.set('token', refresh.json.token);
+                Storage.set('token', refresh.json.access_token);
                 setRefreshDate();
                 Storage.remove('isRefreshingToken');
             }

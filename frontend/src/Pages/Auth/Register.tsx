@@ -6,10 +6,10 @@ import { useHistory } from 'react-router-dom';
 import { useLoading } from '../../Providers/LoadingProvider';
 import AuthApi from '../../Api/AuthApi';
 import Swal from '../../Components/UI/Swal';
-import Storage from '../../Storage';
 import IUser from '../../Interfaces/IUser';
 import { Link } from 'react-router-dom';
 import ValidationHelper from '../../Helpers/ValidationHelper';
+import Input from '../../Components/Form/Input';
 
 const Register: React.FC = () => {
     const loading = useLoading();
@@ -55,41 +55,38 @@ const Register: React.FC = () => {
                     <Box title="Register">
                         <div className="w-full px-2">
                             <form onSubmit={submitHandle} className="flex-col">
-                                <label htmlFor="name">Name:</label>
-                                <input
+                                <Input
+                                    label="Name"
                                     type="text"
                                     name="name"
                                     placeholder="What's your name?"
                                     onChange={handleChange}
                                     value={user.name}
-                                    required
-                                    className={ ValidationHelper.hasError('name', errors) ? 'border-red-400' : '' }
+                                    required={true}
+                                    errors={errors}
                                 />
-                                <span className="errors text-xs text-red-500">{ValidationHelper.getErrors('name', errors)}</span>
 
-                                <label htmlFor="username">Username:</label>
-                                <input
+                                <Input
+                                    label="Username"
                                     type="text"
                                     name="username"
                                     placeholder="Create a unique username"
                                     onChange={handleChange}
                                     value={user.username}
-                                    required
-                                    className={ ValidationHelper.hasError('username', errors) ? 'border-red-400' : '' }
+                                    required={true}
+                                    errors={errors}
                                 />
-                                <span className="errors text-xs text-red-500">{ValidationHelper.getErrors('username', errors)}</span>
                                 
-                                <label htmlFor="password">Password:</label>
-                                <input
+                                <Input
+                                    label="Password"
                                     type="password"
                                     name="password"
                                     placeholder="Create a password"
                                     onChange={handleChange}
                                     value={user.password}
-                                    required
-                                    className={ ValidationHelper.hasError('password', errors) ? 'border-red-400' : '' }
+                                    required={true}
+                                    errors={errors}
                                 />
-                                <span className="errors text-xs text-red-500">{ValidationHelper.getErrors('password', errors)}</span>
 
                                 <div className="mt-4 mb-2 flex justify-center w-full">
                                     <button className="btn btn-blue">
