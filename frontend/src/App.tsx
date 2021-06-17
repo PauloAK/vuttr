@@ -1,15 +1,12 @@
 import React from 'react';
-import {
-    Switch,
-    Route
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Login from './Pages/Auth/Login';
 import Register from './Pages/Auth/Register';
 import Tools from './Pages/Tools';
 import PrivateRoute from './Components/Routing/PrivateRoute';
 import NotFound from './Pages/NotFound';
 
-function App() {
+const App : React.FC<{}> = () => {
     return (
         <Switch>
             <Route path="/login">

@@ -10,12 +10,13 @@ interface IAuth {
     user?: {},
     check: () => boolean,
     getToken?: () => Promise<string>,
-    login?: (user: IUser) => void,
+    login: (user: IUser) => void,
     logout?: () => void
 }
 
 export const AuthContext = createContext<IAuth>({
-    check: () => false
+    check: () => false,
+    login: (user: IUser) => {}
 });
 
 export const AuthProvider : React.FC<{}> = ({ children }) => {

@@ -8,6 +8,42 @@
 
 /* Your own custom component styles */
 
+input {
+    @apply px-1 py-0.5 border border-gray-300 shadow rounded w-full m-1;
+}
+
+.btn {
+    @apply px-3 py-1 rounded bg-gray-50 font-medium flex items-center gap-1;
+}
+
+.btn.btn-sm {
+    @apply px-2 py-1 text-sm;
+}
+
+.btn:hover {
+    @apply opacity-80;
+}
+
+.btn:focus {
+    @apply scale-90;
+}
+
+.btn-green {
+    @apply bg-green-400 text-white;
+}
+
+.btn-blue {
+    @apply bg-blue-400 text-white;
+}
+
+.btn-red {
+    @apply bg-red-400 text-white;
+}
+
+.btn-yellow {
+    @apply bg-red-400 text-white;
+}
+
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */

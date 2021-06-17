@@ -2,7 +2,7 @@ import React from 'react';
 import IResponse from '../Interfaces/IResponse';
 import Storage from '../Storage';
 
-const BASE_URL = process.env.REACT_APP_API_URL; 
+const BASE_URL = 'http://127.0.0.1:3000'; 
 
 interface IClient {
     _request: (endPoint: string, method: string, body?: object) => Promise<IResponse>,
