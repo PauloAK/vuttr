@@ -20,6 +20,13 @@ class Tool extends Model
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['tags'];
+
+    /**
      * Owner user
      *
      * @return BelongsTo

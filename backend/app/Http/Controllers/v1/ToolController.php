@@ -23,11 +23,19 @@ class ToolController extends Controller
     public function index(Request $request) : JsonResponse
     {
         $tagFilter = $request->input('tag');
+        $qFilter = $request->input('q');
         $tools = auth()->user()
             ->tools()
-            ->with('tags')
-            ->when($tagFilter, function($query) use ($tagFilter) {
-                $query->where('tags.name', 'ilike', "%{$tagFilter}%");
+            ->whereHas('tags', function ($query) use ($tagFilter) {
+                $query->when($tagFilter, function($query) use ($tagFilter) {
+                    $query->where('tags.name', 'ilike', "%{$tagFilter}%");
+                });
+            })
+            ->when($qFilter, function ($query) use ($qFilter) {
+                $query->where('name', 'ilike', "%{$qFilter}%")
+                    ->orWhere('link', 'ilike', "%{$qFilter}%")
+                    ->orWhere('description', 'ilike', "%{$qFilter}%")
+                    ->orWhereHas('tags', fn ($query) => $query->where('name', 'ilike', "%{$qFilter}%"));
             })
             ->get();
 
@@ -49,13 +57,13 @@ class ToolController extends Controller
             $tags = explode(' ', $request->input('tags'));
             $tags = array_map(fn ($tag) => trim($tag), $tags);
 
-            $tool->tags()->create($tags);
+            array_walk($tags, fn ($tag) => $tool->tags()->create([ 'name' => $tag ]));
 
             DB::commit();
             return response()->json(new ToolResource($tool), 201);
         } catch (Exception $e) {
             DB::rollBack();
-            Log::error($e->getMessage);
+            Log::error($e->getMessage());
             return response()->json(['message' => 'An error occured while storing your tool.'], 500);
         }
     }
@@ -68,6 +76,7 @@ class ToolController extends Controller
      */
     public function delete(Tool $tool) : JsonResponse
     {
+        $tool->tags()->delete();
         $tool->delete();
 
         return response()->json([], 204);
