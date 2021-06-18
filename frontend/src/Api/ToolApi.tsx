@@ -3,14 +3,14 @@ import ITool from '../Interfaces/ITool';
 import Client from './Client';
 
 interface IToolApi {
-    list: () => Promise<IResponse>,
+    list: (queryString?: string) => Promise<IResponse>,
     store: (formData: ITool) => Promise<IResponse>,
     destroy: (id: number) => Promise<IResponse>
 }
 
 export const ToolApi : IToolApi = {
-    list: async () => {
-        return Client.get('/api/v1/tools');
+    list: async (queryString?: string) => {
+        return Client.get('/api/v1/tools' + (queryString || ''));
     },
     store: async (formData: ITool) => {
         return Client.post('/api/v1/tools', formData);

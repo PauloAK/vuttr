@@ -41,7 +41,7 @@ const Login: React.FC = () => {
         loading.hide();
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>|React.ChangeEvent<HTMLTextAreaElement>) => {
         setUser({
             ...user,
             [e.currentTarget.name]: e.currentTarget.value

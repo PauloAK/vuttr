@@ -38,7 +38,7 @@ const Client : IClient = {
 
         return {
             status: req.status,
-            json: await req.json()
+            json: req.status != 204 ? await req.json() : null
         } as IResponse;
     },
     get : async (endPoint) => {

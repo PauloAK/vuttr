@@ -2,6 +2,8 @@
 
 /* Your own custom base styles */
 
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */
@@ -9,18 +11,18 @@
 /* Your own custom component styles */
 
 .form-group {
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-full my-1 px-1;
 }
 
 .input-style {
     @apply px-2 py-0.5 border border-gray-300 shadow rounded;
 }
 
-.form-group input:not([type=checkbox]) {
-    @apply px-2 py-0.5 border border-gray-300 shadow rounded w-full m-1;
+.form-group input:not([type=checkbox]), .form-group textarea{
+    @apply px-2 py-0.5 border border-gray-300 shadow rounded w-full;
 }
 
-.form-group.has-error input {
+.form-group.has-error input, .form-group.has-error textarea {
     @apply border-red-500 bg-red-200 text-red-500;
 }
 
@@ -59,8 +61,6 @@
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */
-
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 /* Your own custom utilities */
 html, body {
