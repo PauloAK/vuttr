@@ -80,7 +80,7 @@ Tools endpoints
 
 + Response 401
 
-### Create Tool [POST]
+### Create Tool [POST /tools]
 
 + Request Store new Tool
 
