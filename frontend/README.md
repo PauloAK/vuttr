@@ -27,13 +27,26 @@ Informações:
 - Usuário
 - Senha
 
-**Ferramentas**
+![Login](img/login.png)
+
+![Register](img/register.png)
+
+
+**Funcionalidades**
 
 Após efetuar o login, é possível acessar a tela de ferramentas, nessa tela possuimos as seguintes funções:
 - **Listagem**: Exibe todas as ferramentas criadas para o nosso usuário.
+
+![List](img/list.png)
+
 - **Filtrar:** É possível filtrar as ferramentas através do campo texto na parte superior esquerda e definir a busca por tags através do checkbox na mesma posição. 
 - **Adicionar Ferramentas:** Podemos adicionar novas ferramentas, clicando no botão "Add" no canto superior direito, após clicar nele, abrirá-se um modal para preenchermos as informações da ferramenta.
+
+![Add](img/add-new.png)
+
 - **Excluir:** Para excluir ferramentas, basta procurar o botão vermelho escrito "Remove" na repectiva ferramenta que vecê deseja remover, após confirmar a exclusão o sistema atualizará a listagem.
+
+![](img/remove.png)
 
 ## Instalação
 

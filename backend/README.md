@@ -55,5 +55,6 @@ Para acessar a documentação, acesse o arquivo [api-docs.md](./api-docs.md)
 - Inicie o laravel Sail: `./vendor/bin/sail up -d` (Talvez demore um pouco para iniciar a primeira vez, por precisar rodar o build dos containers)
 - Após o comando do sail finalizar, podemos executar comandos:
   - Gerar a Chave da aplicação: `./vendor/bin/sail artisan key:generate`
+  - Gerar a Chave do JWT>: `./vendor/bin/sail artisan jwt:secret`
   - Migrations: `./vendor/bin/sail artisan migrate`
 - Pronto! API está disponibilizada em `http://127.0.0.1:3000`
