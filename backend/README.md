@@ -7,56 +7,53 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# VUTTR
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Projeto com o intuito de disponibilizar uma API para gerenciando de links de ferramentas úteis, também conhecido com **VUTTR** *(Very Useful Tools To Remember)*
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Linguagem e Tecnologias
+- Laravel 8
+- PHP 8
+- PostgreSQL 13
+- Docker (Laravel Sail)
+- JWT
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Ferramentas
+- VSCode
+- API Blueprint
 
-## Learning Laravel
+## API
+### Visão Geral
+A API possui dois grupos de rotas, as autenticadas e as não autenticadas.
+- Não autenticadas
+  - **Login/Registro** - Rotas livres de autenticação para registro de usuários novos e login de usuários.
+- Autenticadas
+  - Todas as demais rotas, como as rotas das ferramentas (`/tools`) são autenticadas, requerendo o envio do token de autenticação via headers: `Authorization: Bearer ...`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Para maiores detalhes das rotas, parâmetros e respostas, veja o item *Documentação*.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Caso a aplicação seja colocada online, utilizando o Laravel Sail, a aplicação ficará disponível na porta `3000`.
 
-## Laravel Sponsors
+### Documentação
+Para um melhor entendimento da API do projeto, foi criado um documento para registrar todas as rotas da aplicação e suas respectivas formas de utilizacão. Esse documento foi criado utilizando o formato [API Blueprint](https://apiblueprint.org/).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Para acessar a documentação, acesse o arquivo [api-docs.apib](./api-dics.apib)
 
-### Premium Partners
+## Instalação
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Requisitos
+- Docker
+  - Se for Windows 10, é necessário ter o WSL2 ativo e integrado ao docker.
+- PHP >= 7.3
+  - Requisito do laravel, caso queria executar o projeto sem docker (Laravel Sail)
+## Passo a Passo
+- Clone o projeto `git clone https://github.com/PauloAK/vuttr.git`
+- Acesse a pasta do backend `cd vuttr/backend/`
+- Instale as dependências do Laravel `composer install`
+- Copie o `.env.example` para `.env`: `cp .env.example .env`
+- Caso necessário, edite o arquivo `.env` que você acabou de copiar para definir conexões com o banco e etc (Caso utilize o Laravel Sail, já está configurado)
+- Inicie o laravel Sail: `./vendor/bin/sail up -d` (Talvez demore um pouco para iniciar a primeira vez, por precisar rodar o build dos containers)
+- Após o comando do sail finalizar, podemos executar comandos:
+  - Gerar a Chave da aplicação: `./vendor/bin/sail artisan key:generate`
+  - Migrations: `./vendor/bin/sail artisan migrate`
+- Pronto! API está disponibilizada em `http://127.0.0.1:3000`

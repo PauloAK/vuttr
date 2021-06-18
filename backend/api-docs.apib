@@ -19,7 +19,7 @@ Auth endpoints
     + Attributes (Login)
             
 + Response 200 (application/json)
-    + Attributes (User)
+    + Attributes (LoginResponse)
 
 + Response 401
 
@@ -61,7 +61,11 @@ Tools endpoints
 
 ## Tools [/tools]
 
-### List Tools [GET]
+### List Tools [GET /tools{?q,tag}]
+
++ Parameters
+    + q: `search string` (string, optional) - Search tools by a query string
+    + tag: `tag_name` (string, optional) - Search tools by tag name
 
 + Request List Tools
 
@@ -70,7 +74,7 @@ Tools endpoints
             Accept: application/json
             Content-Type: application/json
             Authorization: Bearer {TOKEN}
-            
+
 + Response 200 (application/json)
     + Attributes (array[ToolResponse])
 
@@ -85,6 +89,7 @@ Tools endpoints
             Accept: application/json
             Content-Type: application/json
             Authorization: Bearer {TOKEN}
+
     + Attributes (ToolStore)
             
 + Response 200 (application/json)
@@ -117,13 +122,16 @@ Tools endpoints
     + Attributes (Error)
 
 
-
-
 # Data Structures
 
 ## Login (object)
 + username: `myuser` (string) - User username
 + password: `mypass` (string) - User password
+
+## LoginResponse (object)
++ access_token: `...` (string) - Authorization Bearer Token
++ token_type: `bearer` (string)
++ expires_in: 1800 (number) - Expiration time
 
 ## Register (object)
 + name: `John Doe` (string) - User name
