@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import Box from '../../Components/UI/Box';
 import { RiUserAddLine } from 'react-icons/ri';
-import { useAuth } from '../../Providers/AuthProvider';
 import { useHistory } from 'react-router-dom';
 import { useLoading } from '../../Providers/LoadingProvider';
 import AuthApi from '../../Api/AuthApi';
 import Swal from '../../Components/UI/Swal';
 import IUser from '../../Interfaces/IUser';
 import { Link } from 'react-router-dom';
-import ValidationHelper from '../../Helpers/ValidationHelper';
 import Input from '../../Components/Form/Input';
 
 const Register: React.FC = () => {
     const loading = useLoading();
     const history = useHistory();
-    const auth = useAuth();
     const [ user, setUser ]  = useState<IUser>({
         name: '',
         username: '',
