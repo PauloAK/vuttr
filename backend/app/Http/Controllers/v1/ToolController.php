@@ -35,7 +35,7 @@ class ToolController extends Controller
                 $query->where('name', 'ilike', "%{$qFilter}%")
                     ->orWhere('link', 'ilike', "%{$qFilter}%")
                     ->orWhere('description', 'ilike', "%{$qFilter}%")
-                    ->orWhereHas('tags', fn ($query) => $query->where('name', 'ilike', "%{$qFilter}%"));
+                    ->orWhereHas('tags', function ($query) use($qFilter) { $query->where('name', 'ilike', "%{$qFilter}%"); });
             })
             ->get();
 
@@ -55,9 +55,9 @@ class ToolController extends Controller
             $tool = auth()->user()->tools()->create($request->validated());
 
             $tags = explode(' ', $request->input('tags'));
-            $tags = array_map(fn ($tag) => trim($tag), $tags);
+            $tags = array_map(function ($tag) { return trim($tag); }, $tags);
 
-            array_walk($tags, fn ($tag) => $tool->tags()->create([ 'name' => $tag ]));
+            array_walk($tags, function ($tag) use($tool) { $tool->tags()->create([ 'name' => $tag ]); });
 
             DB::commit();
             return response()->json(new ToolResource($tool), 201);

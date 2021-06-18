@@ -2,6 +2,8 @@
 
 Projeto com o intuito de disponibilizar uma aplicação React.JS para gerenciando de links de ferramentas úteis, também conhecido com **VUTTR** *(Very Useful Tools To Remember)*
 
+Dispon�vel em: (https://vuttr.paulokramer.com/)[https://vuttr.paulokramer.com/]
+
 ## Linguagem e Tecnologias
 - React.JS
 - TailwindCSS
