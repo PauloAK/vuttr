@@ -37,7 +37,7 @@ Caso a aplicação seja colocada online, utilizando o Laravel Sail, a aplicaçã
 ### Documentação
 Para um melhor entendimento da API do projeto, foi criado um documento para registrar todas as rotas da aplicação e suas respectivas formas de utilizacão. Esse documento foi criado utilizando o formato [API Blueprint](https://apiblueprint.org/).
 
-Para acessar a documentação, acesse o arquivo [api-docs.apib](./api-dics.apib)
+Para acessar a documentação, acesse o arquivo [api-docs.md](./api-docs.md)
 
 ## Instalação
 
